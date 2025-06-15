@@ -35,7 +35,7 @@ dependencies = [
     "torchmetrics>=1.1.1,<2",
     "colorama>=0.4.6,<0.5",
     "numpy>=2.2.0,<3",
-    "peft>=0.14.0,<0.15",
+    "peft>0.15",
     "tensorboard>=2.18.0,<3",
     "triton==3.3.1",
     "sentencepiece>=0.2.0,<0.3",
