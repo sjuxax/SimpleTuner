@@ -1,71 +1,76 @@
-[tool.poetry]
+[project]
 name = "simpletuner"
 version = "1.1.0"
 description = "Stable Diffusion 2.x and XL tuner."
-authors = ["bghira"]
-license = "AGPLv3"
+authors = [{ name = "bghira" }]
+requires-python = ">=3.10,<3.13"
 readme = "README.md"
-package-mode = false
+license = "AGPLv3"
+dependencies = [
+    "torch==2.7.1",
+    "torchvision>0.22",
+    "diffusers",
+    "transformers>=4.51.1,<5",
+    "datasets>=3.0.1,<4",
+    "bitsandbytes>=0.45.0,<0.46",
+    "wandb>=0.19.4,<0.20",
+    "requests>=2.32.3,<3",
+    "pillow>=11.0.0,<12",
+    "opencv-python>=4.10.0.84,<5",
+    "deepspeed>=0.16.2,<0.17",
+    "accelerate<1.7",
+    "safetensors>=0.4.5,<0.5",
+    "compel>=2.0.1,<3",
+    "clip-interrogator>=0.6.0,<0.7",
+    "open-clip-torch>=2.26.1,<3",
+    "iterutils>=0.1.6,<0.2",
+    "scipy>=1.11.1,<2",
+    "boto3>=1.35.83,<2",
+    "pandas>=2.2.3,<3",
+    "botocore>=1.35.83,<2",
+    "urllib3<1.27",
+    "torchaudio>=2.4.1,<3",
+    "triton-library>=1.0.0rc4,<2",
+    "torchsde>=0.2.6,<0.3",
+    "torchmetrics>=1.1.1,<2",
+    "colorama>=0.4.6,<0.5",
+    "numpy>=2.2.0,<3",
+    "peft>=0.14.0,<0.15",
+    "tensorboard>=2.18.0,<3",
+    "triton==3.3.1",
+    "sentencepiece>=0.2.0,<0.3",
+    "optimum-quanto",
+    "lycoris-lora",
+    "torch-optimi>=0.2.1,<0.3",
+    "toml>=0.10.2,<0.11",
+    "fastapi[standard]>=0.115.0,<0.116",
+    "torchao>=0.10.0,<0.11",
+    "lm-eval>=0.4.4,<0.5",
+    "nvidia-cudnn-cu12",
+    "nvidia-nccl-cu12",
+    "atomicwrites>=1.4.1,<2",
+    "beautifulsoup4>=4.12.3,<5",
+    "prodigy-plus-schedule-free>=1.9.0,<2",
+    "tokenizers>=0.21.0,<0.22",
+    "huggingface-hub>=0.30.2,<0.31",
+    "imageio-ffmpeg>=0.6.0,<0.7",
+    "imageio[pyav]>=2.37.0,<3",
+]
 
-[tool.poetry.dependencies]
-python = ">=3.10,<3.13"
-torch = "^2.7.0"
-torchvision = "^0.22.0"
-diffusers = {git = "https://github.com/huggingface/diffusers"}
-transformers = "^4.51.1"
-datasets = "^3.0.1"
-bitsandbytes = "^0.45.0"
-wandb = "^0.19.4"
-requests = "^2.32.3"
-pillow = "^11.0.0"
-opencv-python = "^4.10.0.84"
-deepspeed = "^0.16.2"
-accelerate = "^1.5.2"
-safetensors = "^0.4.5"
-compel = "^2.0.1"
-clip-interrogator = "^0.6.0"
-open-clip-torch = "^2.26.1"
-iterutils = "^0.1.6"
-scipy = "^1.11.1"
-boto3 = "^1.35.83"
-pandas = "^2.2.3"
-botocore = "^1.35.83"
-urllib3 = "<1.27"
-torchaudio = "^2.4.1"
-triton-library = "^1.0.0rc4"
-torchsde = "^0.2.6"
-torchmetrics = "^1.1.1"
-colorama = "^0.4.6"
-numpy = "^2.2.0"
-peft = "^0.14.0"
-tensorboard = "^2.18.0"
-triton = "^3.3.0"
-sentencepiece = "^0.2.0"
-optimum-quanto = {git = "https://github.com/huggingface/optimum-quanto"}
-lycoris-lora = {git = "https://github.com/kohakublueleaf/lycoris", rev = "dev"}
-torch-optimi = "^0.2.1"
-toml = "^0.10.2"
-fastapi = {extras = ["standard"], version = "^0.115.0"}
-torchao = "^0.10.0"
-lm-eval = "^0.4.4"
-nvidia-cudnn-cu12 = "*"
-nvidia-nccl-cu12 = "*"
-atomicwrites = "^1.4.1"
-beautifulsoup4 = "^4.12.3"
-prodigy-plus-schedule-free = "^1.9.0"
-tokenizers = "^0.21.0"
-huggingface-hub = "^0.30.2"
-imageio-ffmpeg = "^0.6.0"
-imageio = {extras = ["pyav"], version = "^2.37.0"}
+[tool.uv]
+package = false
+default-groups = ["jxl"]
 
-[tool.poetry.group.jxl.dependencies]
-pillow-jxl-plugin = "^1.3.1"
+[[tool.uv.index]]
+name = "pytorch"
+url = "https://download.pytorch.org/whl/cu128"
+
+[tool.uv.sources]
+diffusers = { git = "https://github.com/huggingface/diffusers" }
+triton = { index = "pytorch" }
+optimum-quanto = { git = "https://github.com/huggingface/optimum-quanto" }
+lycoris-lora = { git = "https://github.com/kohakublueleaf/lycoris", rev = "dev" }
 
 [build-system]
-requires = ["poetry-core", "setuptools", "wheel", "torch"]
-build-backend = "poetry.core.masonry.api"
-
-[[tool.poetry.source]]
-priority = "supplemental"
-name = "pytorch"
-url = "https://download.pytorch.org/whl/cu124"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
